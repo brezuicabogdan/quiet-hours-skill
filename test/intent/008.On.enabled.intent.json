@@ -1,0 +1,8 @@
+{
+    "utterance": "You can speak now",
+    "intent_type": "off.intent",
+    "settings": {
+        "enabled": true
+    },
+    "expected_dialog": "off"
+}

@@ -6,7 +6,7 @@ skillMetadata:
         - name: enabled
           type: checkbox
           label: Enable quiet hours
-          value: "true"
+          value: "false"
     - name: Schedule settings
       fields:
         - type: label
@@ -37,10 +37,6 @@ skillMetadata:
       fields:
         - type: label
           label: What to do during quiet hours
-        - name: use_naptime
-          type: checkbox
-          label: Put Mycroft to sleep (using Naptime Skill)
-          value: "true"
         - type: label
           label: Set speakers volume to
         - name: set_volume_to

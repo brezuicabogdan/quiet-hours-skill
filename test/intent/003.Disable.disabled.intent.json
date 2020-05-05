@@ -1,0 +1,8 @@
+{
+    "utterance": "Disable quiet hours",
+    "intent_type": "disable.intent",
+    "settings": {
+        "enabled": false
+    },
+    "expected_dialog": "already.disabled"
+}

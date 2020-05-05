@@ -1,0 +1,8 @@
+{
+    "utterance": "Be quiet",
+    "intent_type": "on.intent",
+    "settings": {
+        "enabled": true
+    },
+    "expected_dialog": "on"
+}
