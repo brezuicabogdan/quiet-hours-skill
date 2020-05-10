@@ -2,10 +2,13 @@
 Automatically silence your mycroft based on a schedule
 
 ## About
-Set a time frame during which your mycroft will be quiet. if enabled teh volume of your mycroft will be automatically be lowered when the quiet hours start and will automatically return to normal once quiet hours end. you also have the possibility to set mycroft to sleep during quiet hours.
+Set a time frame during which your mycroft will be quiet. if enabled the volume of your mycroft will automatically be lowered to specified value when the quiet hours start and will automatically return to normal once quiet hours end.
+This is very usefull if you also use Mycroft for verbal notifications and you do not want to be disturbed at night.
+You can also enable or disable teh quiet hours manually, very nice to have when you are watching a move and do not want to be disturbed.
 
 ## Examples
 * "Be quiet"
+* "You can speak now"
 * "Enable quiet hours"
 * "Disable quiet hours"
 
@@ -19,4 +22,5 @@ Utility
 ## Tags
 #Quiet hours
 #Auto mute
+#Schedule
 

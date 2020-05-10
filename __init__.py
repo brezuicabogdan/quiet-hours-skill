@@ -92,7 +92,7 @@ class QuietHours(MycroftSkill):
             self.end_time.strftime("%H:%M")))
 
     def on(self, speak=True):
-        if(not (self.settings.get('enabled') and not self.settings.get('active')) or self.mixer is None ):
+        if(not self.settings.get('enabled') or self.mixer is None ):
             return
         self.saved_volume = self.mixer.getvolume()
         self.log.info("Quiet hours are in efect")
@@ -105,7 +105,7 @@ class QuietHours(MycroftSkill):
         self.mixer.setvolume(self.settings.get('set_volume_to'))
 
     def off(self, speak=True):
-        if(not (self.settings.get('enabled') and self.settings.get('active')) or self.mixer is None):
+        if(not self.settings.get('enabled') or self.mixer is None):
             return
         self.mixer.setvolume(self.saved_volume[0])
         self.log.info("Quiet hours not in effect anymore")
