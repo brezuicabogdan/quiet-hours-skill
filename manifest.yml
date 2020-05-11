@@ -29,5 +29,3 @@
 #     - my-other-skill
 
 dependencies:
-  skill:
-    - naptime
