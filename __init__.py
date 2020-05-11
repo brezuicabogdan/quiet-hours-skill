@@ -40,25 +40,24 @@ class QuietHours(MycroftSkill):
         self.clear_events()
         if(self.settings.get('enabled')):
             self.log.info("Quiet hours skill is ENABLED")
-            self.log.info("Quiet hours mode is: {}".format(self.settings.get('active')))
-            self.log.info("Saved volume is: {}".format(self.saved_volume))
+            self.log.debug("Quiet hours mode is: {}".format(self.settings.get('active')))
+            self.log.debug("Saved volume is: {}".format(self.saved_volume))
             self.set_start_end()
             self.set_events()
             if(self.should_turn_on_now()):
-                self.log.info('Init: truning on because enabled and should')
+                self.log.debug('Init: truning on because enabled and should')
                 self.on()
             elif(self.settings.get('active')):
-                self.log.info(
+                self.log.debug(
                     'Init: turning off because enabled BUT should not')
                 self.off()
         else:
             self.log.info("Quiet hours skill is DISABLED")
             if(self.settings.get('active')):
-                self.log.info('Init: turning off because not enabled')
+                self.log.debug('Init: turning off because not enabled')
                 self.off()
         
     def shutdown(self):
-        self.log.info('Shutdown: shutting down')
         self.clear_events()
         if(self.settings.get('active')):
             self.off()           
@@ -84,18 +83,18 @@ class QuietHours(MycroftSkill):
         now = to_local(datetime.now())
         self.start_time = now.replace(hour=int(self.settings.get('start_time_hour')),
                                       minute=int(self.settings.get('start_time_min')))
-        self.log.info("Start time is: {}".format(
+        self.log.debug("Start time is: {}".format(
             self.start_time.strftime("%H:%M")))
         self.end_time = now.replace(hour=int(self.settings.get('end_time_hour')),
                                     minute=int(self.settings.get('end_time_min')))
-        self.log.info("End time is: {}".format(
+        self.log.debug("End time is: {}".format(
             self.end_time.strftime("%H:%M")))
 
     def on(self, speak=True):
         if(not self.settings.get('enabled') or self.mixer is None ):
             return
         self.saved_volume = self.mixer.getvolume()
-        self.log.info("Quiet hours are in efect")
+        self.log.debug("Quiet hours are in efect")
         self.settings['active'] = True
         if(speak):
             self.speak_dialog('on')
@@ -108,7 +107,7 @@ class QuietHours(MycroftSkill):
         if(not self.settings.get('enabled') or self.mixer is None):
             return
         self.mixer.setvolume(self.saved_volume[0])
-        self.log.info("Quiet hours not in effect anymore")
+        self.log.debug("Quiet hours not in effect anymore")
         self.settings['active'] = False
         if(speak):
             self.speak_dialog('off')
@@ -116,12 +115,10 @@ class QuietHours(MycroftSkill):
     def should_turn_on_now(self):
         """ Check if current time is inside teh quiet hours interval"""
         now = now_local()
-        self.log.info("Curent time is {}".format(now.strftime("%H:%M")))
+        self.log.debug("Curent time is {}".format(now.strftime("%H:%M")))
         if(self.start_time <= self.end_time):
-            self.log.info("Should scenario 1")
             return (self.start_time <= now and now < self.end_time)
         else:
-            self.log.info("Should scenario 2")
             return (now > self.start_time or now < self.end_time)
 
     def clear_events(self):
@@ -129,7 +126,7 @@ class QuietHours(MycroftSkill):
         self.cancel_scheduled_event(self.OFF_EVENT_NAME)
 
     def set_events(self):
-        self.log.info('Setting events')
+        self.log.debug('Setting events')
         self.schedule_repeating_event(self.on, to_system(
             self.start_time), 86400, name=self.ON_EVENT_NAME)
         self.schedule_repeating_event(self.off, to_system(
